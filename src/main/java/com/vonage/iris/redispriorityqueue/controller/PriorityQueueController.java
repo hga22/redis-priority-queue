@@ -12,13 +12,18 @@ public class PriorityQueueController {
   @Autowired
   private PriorityQueueService priorityQueueService;
 
-  @PostMapping(path = "{queueName}/add")
+  @PostMapping(path = "{queueName}")
   public void add(@PathVariable("queueName") String queueName, @RequestBody Message message) {
     priorityQueueService.add(queueName, message);
   }
 
-  @GetMapping(path = "{queueName}/get")
+  @GetMapping(path = "{queueName}")
   public Message get(@PathVariable("queueName") String queueName) {
     return priorityQueueService.getMaxPriorityMessage(queueName);
+  }
+
+  @DeleteMapping(path = "{queueName}/{key}")
+  public void get(@PathVariable("queueName") String queueName, @PathVariable("key") String key) {
+    priorityQueueService.deleteMessage(queueName, key);
   }
 }
